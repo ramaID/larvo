@@ -54,10 +54,10 @@
             "@php artisan key:generate --ansi"
         ],
         "cs-check": [
-            "vendor/bin/php-cs-fixer fix --dry-run --diff"
+            "vendor/bin/php-cs-fixer fix --dry-run --diff --config=.php_cs.dist.php --allow-risky=yes"
         ],
         "cs-fix": [
-            "vendor/bin/php-cs-fixer fix --diff"
+            "vendor/bin/php-cs-fixer fix --diff --config=.php_cs.dist.php --allow-risky=yes"
         ],
         "analyse": [
             "vendor/bin/phpstan analyse"
