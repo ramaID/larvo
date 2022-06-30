@@ -19,7 +19,6 @@
         "beyondcode/laravel-query-detector": "^1.6",
         "brianium/paratest": "^6.4",
         "fakerphp/faker": "^1.9.1",
-        "friendsofphp/php-cs-fixer": "^3.8",
         "laravel/pint": "^0.2.1",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.4",
@@ -53,12 +52,6 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
-        ],
-        "cs-check": [
-            "vendor/bin/php-cs-fixer fix --dry-run --diff --config=.php_cs.dist.php --allow-risky=yes"
-        ],
-        "cs-fix": [
-            "vendor/bin/php-cs-fixer fix --diff --config=.php_cs.dist.php --allow-risky=yes"
         ],
         "pint": [
             "vendor/bin/pint"
