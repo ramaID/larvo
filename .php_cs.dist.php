@@ -42,6 +42,8 @@ return (new PhpCsFixer\Config())
             'single_item_single_line' => true,
             'single_line' => true,
         ],
+        'clean_namespace' => true,
+        'compact_nullable_typehint' => true,
         'concat_space' => [
             'spacing' => 'none',
         ],
@@ -50,7 +52,7 @@ return (new PhpCsFixer\Config())
         'elseif' => true,
         'encoding' => true,
         'full_opening_tag' => true,
-        'fully_qualified_strict_types' => true, // added by Shift
+        'fully_qualified_strict_types' => true,
         'function_declaration' => true,
         'function_typehint_space' => true,
         'general_phpdoc_tag_rename' => true,
@@ -58,12 +60,14 @@ return (new PhpCsFixer\Config())
         'include' => true,
         'increment_style' => ['style' => 'post'],
         'indentation_type' => true,
+        'integer_literal_case' => true,
+        'lambda_not_used_import' => true,
         'linebreak_after_opening_tag' => true,
         'line_ending' => true,
         'lowercase_cast' => true,
         'lowercase_keywords' => true,
-        'lowercase_static_reference' => true, // added from Symfony
-        'magic_method_casing' => true, // added from Symfony
+        'lowercase_static_reference' => true,
+        'magic_method_casing' => true,
         'magic_constant_casing' => true,
         'method_argument_space' => [
             'on_multiline' => 'ignore',
@@ -72,6 +76,7 @@ return (new PhpCsFixer\Config())
             'strategy' => 'no_multi_line',
         ],
         'native_function_casing' => true,
+        'native_function_type_declaration_casing' => true,
         'no_alias_functions' => true,
         'no_extra_blank_lines' => [
             'tokens' => [
@@ -80,6 +85,9 @@ return (new PhpCsFixer\Config())
                 'use',
             ],
         ],
+        'no_alias_language_construct_call' => true,
+        'no_alternative_syntax' => true,
+        'no_binary_string' => true,
         'no_blank_lines_after_class_opening' => true,
         'no_blank_lines_after_phpdoc' => true,
         'no_closing_tag' => true,
@@ -94,6 +102,7 @@ return (new PhpCsFixer\Config())
         'no_short_bool_cast' => true,
         'no_singleline_whitespace_before_semicolons' => true,
         'no_spaces_after_function_name' => true,
+        'no_space_around_double_colon' => true,
         'no_spaces_around_offset' => [
             'positions' => ['inside', 'outside'],
         ],
@@ -105,15 +114,18 @@ return (new PhpCsFixer\Config())
         'no_unneeded_control_parentheses' => [
             'statements' => ['break', 'clone', 'continue', 'echo_print', 'return', 'switch_case', 'yield'],
         ],
+        'no_unneeded_curly_braces' => true,
+        'no_unset_cast' => true,
         'no_unreachable_default_argument_value' => true,
         'no_useless_return' => true,
         'no_whitespace_before_comma_in_array' => true,
         'no_whitespace_in_blank_line' => true,
+        'no_unused_imports' => true,
         'normalize_index_brace' => true,
         'not_operator_with_successor_space' => true,
         'object_operator_without_whitespace' => true,
         'ordered_imports' => ['sort_algorithm' => 'alpha'],
-        'psr_autoloading' => true,
+        'psr_autoloading' => false,
         'phpdoc_indent' => true,
         'phpdoc_inline_tag_normalizer' => true,
         'phpdoc_no_access' => true,
@@ -122,14 +134,17 @@ return (new PhpCsFixer\Config())
         'phpdoc_scalar' => true,
         'phpdoc_single_line_var_spacing' => true,
         'phpdoc_summary' => false,
-        'phpdoc_to_comment' => false, // override to preserve user preference
+        'phpdoc_to_comment' => false,
         'phpdoc_tag_type' => true,
         'phpdoc_trim' => true,
         'phpdoc_types' => true,
         'phpdoc_var_without_name' => true,
+        'return_type_declaration' => [
+            'space_before' => 'none',
+        ],
         'self_accessor' => true,
         'short_scalar_cast' => true,
-        'simplified_null_return' => false, // disabled as "risky"
+        'simplified_null_return' => false,
         'single_blank_line_at_eof' => true,
         'single_blank_line_before_namespace' => true,
         'single_class_element_per_statement' => [
@@ -153,29 +168,14 @@ return (new PhpCsFixer\Config())
             'elements' => ['method', 'property'],
         ],
         'whitespace_after_comma_in_array' => true,
-        '@PSR12' => true,
-        'array_syntax' => ['syntax' => 'short'],
-        'ordered_imports' => ['sort_algorithm' => 'alpha'],
-        'no_unused_imports' => true,
-        'not_operator_with_successor_space' => true,
-        'trailing_comma_in_multiline' => true,
-        'phpdoc_scalar' => true,
-        'unary_operator_spaces' => true,
-        'binary_operator_spaces' => true,
-        'blank_line_before_statement' => [
-            'statements' => ['break', 'continue', 'declare', 'return', 'throw', 'try'],
-        ],
-        'phpdoc_single_line_var_spacing' => true,
-        'phpdoc_var_without_name' => true,
-        'class_attributes_separation' => [
-            'elements' => [
-                'method' => 'one',
-            ],
-        ],
-        'method_argument_space' => [
-            'on_multiline' => 'ensure_fully_multiline',
-            'keep_multiple_spaces_after_comma' => true,
-        ],
-        'single_trait_insert_per_statement' => true,
+        'Laravel/laravel_phpdoc_alignment' => true,
+        'Laravel/laravel_phpdoc_order' => true,
+        'Laravel/laravel_phpdoc_separation' => true,
     ])
-    ->setFinder($finder);
+    ->setFinder($finder)
+    ->registerCustomFixers([
+        // Laravel...
+        new App\Support\Fixers\LaravelPhpdocOrderFixer(),
+        new App\Support\Fixers\LaravelPhpdocSeparationFixer(),
+        new App\Support\Fixers\LaravelPhpdocAlignmentFixer(),
+    ]);
